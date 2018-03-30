@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "239741782498",
+    "firebase_url": "https://notebuddy-9b5d4.firebaseio.com",
+    "project_id": "notebuddy-9b5d4",
+    "storage_bucket": "notebuddy-9b5d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:239741782498:android:0ad47208f9187ac7",
+        "android_client_info": {
+          "package_name": "com.example.aditya.notebuddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "239741782498-vafttlsc13pa5k1qkh9f6le049a7af78.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.aditya.notebuddy",
+            "certificate_hash": "aa8bd20322ebe1e2b5fa017ee6d45e7c911863f1"
+          }
+        },
+        {
+          "client_id": "239741782498-vvci55pt4eou20ccrutidt62vhl8esed.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDK2LAcYedL_M_MbQ2zJIRZcehYmXTsK8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "239741782498-vvci55pt4eou20ccrutidt62vhl8esed.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
