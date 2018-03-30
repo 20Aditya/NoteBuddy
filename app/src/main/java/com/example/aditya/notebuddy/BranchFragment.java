@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.design.widget.FloatingActionButton;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -18,6 +19,9 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -104,34 +108,17 @@ public class BranchFragment extends Fragment {
         list = (ListView)view.findViewById(R.id.list);
         reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/Information Technology");
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, notes);
 
-        reference.addChildEventListener(new ChildEventListener() {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String value = dataSnapshot.getValue().toString();
-                Log.d("Activity", "Value=" + value);
-
-                notes.add(value);
-
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot datas: dataSnapshot.getChildren()) {
+                    String key = datas.child("Title").getValue().toString();
+                    Log.d("List","datas=" + datas.child("Title").getValue().toString());
+                    notes.add(key);
+                }
                 final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, notes);
                 list.setAdapter(adapter);
-
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
             }
 
@@ -139,9 +126,18 @@ public class BranchFragment extends Fragment {
             public void onCancelled(FirebaseError firebaseError) {
 
             }
+
         });
 
-
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("List", "Value=" + parent.getItemAtPosition(position));
+                Intent viewevent = new Intent(getActivity().getApplicationContext(),ViewNoteActivity.class);
+                viewevent.putExtra(Utilities.Title,parent.getItemAtPosition(position).toString());
+                startActivity(viewevent);
+            }
+        });
 
         return view;
 
