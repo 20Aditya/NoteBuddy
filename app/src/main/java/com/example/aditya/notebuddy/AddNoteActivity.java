@@ -43,12 +43,16 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
     Uploads upload;
     String name;
     TextInputLayout title, description, branch;
+    String year;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
+
+        year = getIntent().getStringExtra(Utilities.Year);
+        Log.d("AddNote", "Year = " + year);
 
          title = (TextInputLayout)findViewById(R.id.titleWrapper);
          description = (TextInputLayout)findViewById(R.id.descriptionlWrapper);
@@ -161,12 +165,19 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         if(branch.getEditText()!= null)
             branchname = branch.getEditText().getText().toString();
 
-        Log.d("AddNoteActivity","Titlename = " + titlename);
+        Log.d("AddNoteActivity","Titlename = " + branchname);
 
-        databaseReference.child(branchname).child(titlename).child("Title").setValue(titlename);
-        databaseReference.child(branchname).child(titlename).child("Description").setValue(descriptionname);
-        databaseReference.child(branchname).child(titlename).child("File name").setValue(name);
-        databaseReference.child(branchname).child(titlename).child("File URL").setValue(upload.getUrl());
+        if(!branchname.equals("Public Notes") ) {
+            databaseReference.child(year).child(branchname).child(titlename).child("Title").setValue(titlename);
+            databaseReference.child(year).child(branchname).child(titlename).child("Description").setValue(descriptionname);
+            databaseReference.child(year).child(branchname).child(titlename).child("File name").setValue(name);
+            databaseReference.child(year).child(branchname).child(titlename).child("File URL").setValue(upload.getUrl());
+        }else{
+            databaseReference.child(branchname).child(titlename).child("Title").setValue(titlename);
+            databaseReference.child(branchname).child(titlename).child("Description").setValue(descriptionname);
+            databaseReference.child(branchname).child(titlename).child("File name").setValue(name);
+            databaseReference.child(branchname).child(titlename).child("File URL").setValue(upload.getUrl());
+        }
 
 
     }
@@ -187,7 +198,9 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.submitbutton:
                 submit();
-                startActivity(new Intent(AddNoteActivity.this,MainActivity.class));
+                Intent intent = new Intent(AddNoteActivity.this,MainActivity.class);
+                intent.putExtra(Utilities.Year,year);
+                startActivity(intent);
                 finish();
                 break;
         }

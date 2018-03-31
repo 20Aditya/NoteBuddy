@@ -63,9 +63,7 @@ public class BranchFragment extends Fragment {
     ListView list;
     Firebase reference;
     ArrayList<String> notes = new ArrayList<>();
-    private MenuItem mSearchAction;
-    private boolean isSearchOpened = false;
-    private EditText edtSeach;
+    String year;
 
     public BranchFragment() {
         // Required empty public constructor
@@ -102,18 +100,23 @@ public class BranchFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_branch, container, false);
 
+
+        year = getActivity().getIntent().getStringExtra(Utilities.Year);
+        Log.d("MainActivity", "Year = " + year);
 
         fab = view.findViewById(R.id.fab);
         if (fab != null) {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                     startActivity(new Intent(getActivity(), AddNoteActivity.class));
+                     Intent intent = new Intent(getActivity(), AddNoteActivity.class);
+                     intent.putExtra(Utilities.Year,year);
+                     startActivity(intent);
                     if (getContext() instanceof Activity) {
                         ((Activity) getContext()).overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_right);
                     }
@@ -123,7 +126,7 @@ public class BranchFragment extends Fragment {
         }
 
         list = (ListView)view.findViewById(R.id.list);
-        reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/Information Technology");
+        reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/" + year + "/Information Technology/");
 
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -153,6 +156,7 @@ public class BranchFragment extends Fragment {
                 Log.d("List", "Value=" + parent.getItemAtPosition(position));
                 Intent viewevent = new Intent(getActivity(),ViewNoteActivity.class);
                 viewevent.putExtra(Utilities.Title,parent.getItemAtPosition(position).toString());
+                viewevent.putExtra(Utilities.Year,year);
                 startActivity(viewevent);
                 if (getContext() instanceof Activity) {
                     ((Activity) getContext()).overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_right);
@@ -184,7 +188,7 @@ public class BranchFragment extends Fragment {
     public void update(final String branch){
 
         notes.clear();
-        reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/" + branch);
+        reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/" + year + "/" + branch);
 
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -213,6 +217,7 @@ public class BranchFragment extends Fragment {
                 Intent viewevent = new Intent(getActivity(), ViewNoteActivity.class);
                 viewevent.putExtra(Utilities.Title,parent.getItemAtPosition(position).toString());
                 viewevent.putExtra(Utilities.Branch, branch);
+                viewevent.putExtra(Utilities.Year, year);
                 startActivity(viewevent);
 
             }

@@ -29,7 +29,7 @@ import java.io.IOException;
 
 public class ViewNoteActivity extends AppCompatActivity implements View.OnClickListener {
 
-    String title,branch;
+    String title,branch,year;
     TextView textView3,textView5,textView7;
     File localFile;
 
@@ -41,6 +41,7 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
         Intent in = getIntent();
         title = in.getStringExtra(Utilities.Title);
         branch = in.getStringExtra(Utilities.Branch);
+        year = in.getStringExtra(Utilities.Year);
 
 
         Log.d("View","Value=" + title);
@@ -54,7 +55,7 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
 
             Log.d("View", "branch=" + branch);
 
-            Firebase reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/Information Technology/" + title);
+            Firebase reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/" + year + "/Information Technology/" + title);
             reference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -72,7 +73,7 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
         }else{
 
             Log.d("View", "branch=" + branch);
-            Firebase reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/" + branch + "/" + title);
+            Firebase reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/" + year + "/" + branch + "/" + title);
             reference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
