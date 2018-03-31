@@ -19,9 +19,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddNoteActivity" />
-        <activity android:name=".ViewEventActivity" />
-        <activity android:name=".ViewNoteActivity"></activity>
+        <activity
+            android:name=".AddNoteActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ViewNoteActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ResultsActivity"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".ViewPublicNoteActivity"></activity>
     </application>
 
 </manifest>

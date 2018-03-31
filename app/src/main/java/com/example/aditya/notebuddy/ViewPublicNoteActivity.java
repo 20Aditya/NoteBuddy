@@ -6,20 +6,16 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -27,7 +23,8 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 
-public class ViewNoteActivity extends AppCompatActivity implements View.OnClickListener {
+public class ViewPublicNoteActivity extends AppCompatActivity implements View.OnClickListener {
+
 
     String title;
     TextView textView3,textView5,textView7;
@@ -36,7 +33,7 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_note);
+        setContentView(R.layout.activity_view_public_note);
 
         title = getIntent().getStringExtra(Utilities.Title);
         Log.d("View","Value=" + title);
@@ -46,7 +43,7 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
         textView7 = (TextView)findViewById(R.id.textView7);
 
 
-        Firebase reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/Information Technology/" + title);
+        Firebase reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/Public Notes/" + title);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -99,13 +96,13 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
             File directory = new File(Environment.getExternalStoragePublicDirectory
                     (Environment.DIRECTORY_DOCUMENTS).getAbsolutePath());
 
-             localFile = File.createTempFile(f,".pdf", directory);
+            localFile = File.createTempFile(f,".pdf", directory);
 
             islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     Log.e("firebase ", ";local item file created  created " + localFile.toString());
-                    Toast.makeText(ViewNoteActivity.this, "File Downloaded Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ViewPublicNoteActivity.this, "File Downloaded Successfully", Toast.LENGTH_SHORT).show();
                     //  updateDb(timestamp,localFile.toString(),position);
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -136,7 +133,5 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
         }
 
     }
-
-
 
 }

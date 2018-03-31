@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title=""
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_search"
+        android:orderInCategory="200"
+        android:title=""
+        android:icon="@drawable/flash"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/IT"
+        android:title="IT"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/CSE"
+        android:title="CSE" />
+
+    <item
+        android:id="@+id/Mech"
+        android:title="Mechanical Engg." />
+
+    <item
+        android:id="@+id/Elec"
+        android:title="Electrical Engg." />
+
+    <item
+        android:id="@+id/Elex"
+        android:title="Electronics and Tele." />
+
+    <item
+        android:id="@+id/Civil"
+        android:title="Civil Engg." />
+
+    <item
+        android:id="@+id/Chem"
+        android:title="Chemical Engg." />
+
+</menu>

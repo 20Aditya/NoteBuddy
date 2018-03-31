@@ -1,12 +1,24 @@
 package com.example.aditya.notebuddy;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
+import java.util.ArrayList;
 
 
 /**
@@ -28,6 +40,11 @@ public class PublicFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    ListView list;
+    Firebase reference;
+    ArrayList<String> notes = new ArrayList<>();
+
 
     public PublicFragment() {
         // Required empty public constructor
@@ -64,7 +81,45 @@ public class PublicFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_public, container, false);
+        View view =  inflater.inflate(R.layout.fragment_public, container, false);
+
+
+        list = (ListView)view.findViewById(R.id.list);
+        reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/Public Notes");
+
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot datas: dataSnapshot.getChildren()) {
+                    String key = datas.child("Title").getValue().toString();
+                    Log.d("List","datas=" + datas.child("Title").getValue().toString());
+                    notes.add(key);
+                }
+                final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, notes);
+                list.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+
+        });
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("List", "Value=" + parent.getItemAtPosition(position));
+                Intent viewevent = new Intent(getActivity().getApplicationContext(),ViewPublicNoteActivity.class);
+                viewevent.putExtra(Utilities.Title,parent.getItemAtPosition(position).toString());
+                startActivity(viewevent);
+            }
+        });
+
+        return view;
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

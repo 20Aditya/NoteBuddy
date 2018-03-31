@@ -3,9 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#FFCDD2"
+    android:background="#ffffff"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    >
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/titleWrapper"
@@ -33,7 +34,6 @@
             android:layout_height="150dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:backgroundTint="@color/colorPrimaryDark"
             android:gravity="clip_horizontal"
             android:hint="Description"
             android:fitsSystemWindows="true"
@@ -66,24 +66,29 @@
         android:id="@+id/filename"
         />
 
-    <Button
+    <LinearLayout
+        android:layout_marginTop="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upload File"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/buttonUploadFile"
-        />
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <Button
+            android:layout_marginRight="25dp"
+            android:background="@drawable/upload"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/buttonUploadFile"
+            />
 
-
-    <Button
-        android:id="@+id/submitbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/colorPrimaryDark"
-        android:elevation="4dp"
-        android:paddingLeft="70dp"
-        android:paddingRight="70dp"
-        android:text="Submit"
-        android:textColor="#fff" />
+        <Button
+            android:id="@+id/submitbutton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/submit"
+            android:elevation="4dp"
+            android:paddingLeft="70dp"
+            android:paddingRight="70dp" />
+    </LinearLayout>
 </LinearLayout>

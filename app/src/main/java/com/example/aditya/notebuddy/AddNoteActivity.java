@@ -43,6 +43,7 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
     String name;
     TextInputLayout title, description, branch;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +72,9 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.buttonUploadFile).setOnClickListener(this);
         findViewById(R.id.submitbutton).setOnClickListener(this);
 
+        getSupportActionBar().setTitle("AddNoteActivity");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
 
@@ -88,7 +92,7 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
 
         //creating an intent for file chooser
         Intent intent = new Intent();
-        intent.setType("application/pdf");
+        intent.setType("application/pdf|application/vnd.ms-powerpoint|application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/vnd.oasis.opendocument.spreadsheet");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_PDF_CODE);
     }
@@ -166,7 +170,11 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
 
     @Override
     public void onClick(View v) {

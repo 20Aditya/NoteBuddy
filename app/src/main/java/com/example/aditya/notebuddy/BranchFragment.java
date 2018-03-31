@@ -1,5 +1,6 @@
 package com.example.aditya.notebuddy;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -7,13 +8,21 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.design.widget.FloatingActionButton;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -53,6 +62,9 @@ public class BranchFragment extends Fragment {
     ListView list;
     Firebase reference;
     ArrayList<String> notes = new ArrayList<>();
+    private MenuItem mSearchAction;
+    private boolean isSearchOpened = false;
+    private EditText edtSeach;
 
     public BranchFragment() {
         // Required empty public constructor
@@ -84,7 +96,7 @@ public class BranchFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-
+        setHasOptionsMenu(true);
 
     }
 
@@ -93,6 +105,7 @@ public class BranchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_branch, container, false);
+
 
         fab = view.findViewById(R.id.fab);
         if (fab != null) {
@@ -150,6 +163,34 @@ public class BranchFragment extends Fragment {
         }
     }
 
+    public void update(String branch){
+
+        notes.clear();
+        reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/" + branch);
+
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot datas: dataSnapshot.getChildren()) {
+                    String key = datas.child("Title").getValue().toString();
+                    Log.d("List","datas=" + datas.child("Title").getValue().toString());
+                    notes.add(key);
+                }
+                final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, notes);
+                list.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+
+        });
+    }
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -165,6 +206,120 @@ public class BranchFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu,menu);
+    }
+
+
+    /*@Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        mSearchAction = menu.findItem(R.id.action_search);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+            case R.id.action_search:
+                handleMenuSearch();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected void handleMenuSearch(){
+        ActionBar action = getSupportActionBar(); //get the actionbar
+
+        if(isSearchOpened){ //test if the search is open
+
+            action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
+            action.setDisplayShowTitleEnabled(true); //show the title in the action bar
+
+            //hides the keyboard
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(edtSeach.getWindowToken(), 0);
+
+            //add the search icon in the action bar
+            mSearchAction.setIcon(getResources().getDrawable(R.drawable.flash));
+
+            isSearchOpened = false;
+        } else { //open the search entry
+
+            action.setDisplayShowCustomEnabled(true); //enable it to display a
+            // custom view in the action bar.
+            action.setCustomView(R.layout.search_bar);//add the custom view
+            action.setDisplayShowTitleEnabled(false); //hide the title
+
+            edtSeach = (EditText)action.getCustomView().findViewById(R.id.edtSearch); //the text editor
+
+            //this is a listener to do a search when the user clicks on search button
+            edtSeach.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                        SearchResultsActivity.showResults(edtSeach.getText().toString());
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
+
+            edtSeach.requestFocus();
+
+            //open the keyboard focused in the edtSearch
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(edtSeach, InputMethodManager.SHOW_IMPLICIT);
+
+
+            //add the close icon
+            mSearchAction.setIcon(getResources().getDrawable(R.drawable.cross));
+
+            isSearchOpened = true;
+        }
+    }
+*/
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
+            case R.id.IT:
+                update("Information Technology");
+                break;
+            case R.id.CSE:
+                update("Computer Science");
+                break;
+            case R.id.Mech:
+                update("Mechanical Engg.");
+                break;
+            case R.id.Elec:
+                update("Electrical Engg.");
+                break;
+            case R.id.Elex:
+                update("Electronics and Tele.");
+                break;
+            case R.id.Civil:
+                update("Civil Engg.");
+                break;
+            case R.id.Chem:
+                update("Chemical Engg.");
+                break;
+
+        }
+
+        return true;
     }
 
     /**
