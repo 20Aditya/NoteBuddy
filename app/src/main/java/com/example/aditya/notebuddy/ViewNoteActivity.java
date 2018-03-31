@@ -29,7 +29,7 @@ import java.io.IOException;
 
 public class ViewNoteActivity extends AppCompatActivity implements View.OnClickListener {
 
-    String title;
+    String title,branch;
     TextView textView3,textView5,textView7;
     File localFile;
 
@@ -38,7 +38,11 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_note);
 
-        title = getIntent().getStringExtra(Utilities.Title);
+        Intent in = getIntent();
+        title = in.getStringExtra(Utilities.Title);
+        branch = in.getStringExtra(Utilities.Branch);
+
+
         Log.d("View","Value=" + title);
 
         textView3 = (TextView)findViewById(R.id.textView3);
@@ -46,21 +50,44 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
         textView7 = (TextView)findViewById(R.id.textView7);
 
 
-        Firebase reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/Information Technology/" + title);
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                textView3.setText(dataSnapshot.child("Title").getValue().toString());
-                textView5.setText(dataSnapshot.child("Description").getValue().toString());
-                textView7.setText(dataSnapshot.child("File name").getValue().toString());
-            }
+        if(branch==null || branch=="branch") {
 
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
+            Log.d("View", "branch=" + branch);
 
-            }
-        });
+            Firebase reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/Information Technology/" + title);
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    textView3.setText(dataSnapshot.child("Title").getValue().toString());
+                    textView5.setText(dataSnapshot.child("Description").getValue().toString());
+                    textView7.setText(dataSnapshot.child("File name").getValue().toString());
+                }
 
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
+
+        }else{
+
+            Log.d("View", "branch=" + branch);
+            Firebase reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/" + branch + "/" + title);
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    textView3.setText(dataSnapshot.child("Title").getValue().toString());
+                    textView5.setText(dataSnapshot.child("Description").getValue().toString());
+                    textView7.setText(dataSnapshot.child("File name").getValue().toString());
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
+
+        }
         findViewById(R.id.button2).setOnClickListener(this);
 
         getSupportActionBar().setTitle("AddNoteActivity");

@@ -8,5 +8,6 @@ public class Utilities {
 
     public static final String Title = "Title";
     public static final String Results = "Results";
+    public static final String Branch = "branch";
 
 }

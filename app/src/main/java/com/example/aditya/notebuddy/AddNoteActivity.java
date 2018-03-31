@@ -1,5 +1,6 @@
 package com.example.aditya.notebuddy;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -186,6 +187,7 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.submitbutton:
                 submit();
+                startActivity(new Intent(AddNoteActivity.this,MainActivity.class));
                 finish();
                 break;
         }

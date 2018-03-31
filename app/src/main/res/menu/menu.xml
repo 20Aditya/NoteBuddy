@@ -16,9 +16,14 @@
         app:showAsAction="always"/>
 
     <item
+        android:id="@+id/refresh"
+        android:title="Refresh"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/IT"
         android:title="IT"
-        app:showAsAction="never"/>
+        />
 
     <item
         android:id="@+id/CSE"

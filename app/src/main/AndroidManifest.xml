@@ -14,9 +14,8 @@
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
@@ -27,8 +26,8 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ResultsActivity"
-            android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".ViewPublicNoteActivity"></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".ViewPublicNoteActivity" />
     </application>
 
 </manifest>
