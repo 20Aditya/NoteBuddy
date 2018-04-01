@@ -46,6 +46,8 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
         year = in.getStringExtra(Utilities.Year);
 
 
+        setTitle("Requested Note");
+
         Log.d("View","Value=" + title);
 
         textView3 = (TextView)findViewById(R.id.textView3);

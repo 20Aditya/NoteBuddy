@@ -6,7 +6,9 @@
     android:background="#ffffff"
     android:orientation="vertical"
     android:padding="16dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linear"
+    tools:context=".AddNoteActivity"
     >
 
     <android.support.design.widget.TextInputLayout

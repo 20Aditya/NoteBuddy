@@ -52,6 +52,8 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
 
+        setTitle("Add a Note");
+
         year = getIntent().getStringExtra(Utilities.Year);
         Log.d("AddNote", "Year = " + year);
 

@@ -43,6 +43,8 @@ public class ViewPublicNoteActivity extends AppCompatActivity implements View.On
         textView7 = (TextView)findViewById(R.id.textView7);
 
 
+        setTitle("Requested Note");
+
         Firebase reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/Public Notes/" + title);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
