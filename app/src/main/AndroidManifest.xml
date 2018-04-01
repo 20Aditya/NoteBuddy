@@ -16,14 +16,17 @@
         </activity>
         <activity
             android:name=".AddNoteActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:label="Add a Note"/>
         <activity
             android:name=".ViewNoteActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:label="Requested Note"/>
         <activity
             android:name=".ResultsActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".ViewPublicNoteActivity" />
+        <activity android:name=".ViewPublicNoteActivity"
+            android:label="Requested Note"/>
         <activity android:name=".LaunchingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
