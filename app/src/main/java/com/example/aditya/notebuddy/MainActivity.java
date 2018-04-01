@@ -2,6 +2,7 @@ package com.example.aditya.notebuddy;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentTransaction;
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
 
+        Snackbar snackbar = Snackbar
+                .make(viewPager,"Loading Data...", Snackbar.LENGTH_SHORT);
+        snackbar.show();
 
         viewPager.setAdapter(mAdapter);
         actionBar.setHomeButtonEnabled(false);

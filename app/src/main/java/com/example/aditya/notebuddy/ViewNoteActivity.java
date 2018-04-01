@@ -3,6 +3,7 @@ package com.example.aditya.notebuddy;
 import android.content.Intent;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
@@ -140,6 +142,16 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     Log.e("firebase ", ";local tem file not created  created " + exception.toString());
+                }
+            }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100 * taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+                    Snackbar snackbar = Snackbar
+                            .make(findViewById(R.id.linearlayout),(int)progress + "% Downloaded...", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+
+
                 }
             });
         }catch (IOException e) {

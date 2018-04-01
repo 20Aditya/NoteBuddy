@@ -8,6 +8,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
@@ -150,6 +151,10 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
                     @Override
                     public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                         double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                        Snackbar snackbar = Snackbar
+                                .make(findViewById(R.id.linear),(int)progress + "% Uploading...", Snackbar.LENGTH_LONG);
+                        snackbar.show();
+
                     }
                 });
 

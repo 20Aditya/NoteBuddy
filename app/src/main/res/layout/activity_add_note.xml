@@ -6,6 +6,7 @@
     android:background="#ffffff"
     android:orientation="vertical"
     android:padding="16dp"
+    android:id="@+id/linear"
     >
 
     <android.support.design.widget.TextInputLayout

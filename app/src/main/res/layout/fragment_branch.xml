@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#FBC37F"
-    android:tag="Branch">
+    android:tag="Branch"
+    android:id="@+id/branch">
 
     <ListView
         android:layout_width="match_parent"

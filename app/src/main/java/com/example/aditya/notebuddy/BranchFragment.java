@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -23,6 +24,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.firebase.client.ChildEventListener;
@@ -57,6 +60,8 @@ public class BranchFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    ProgressBar progressBar;
+
     private OnFragmentInteractionListener mListener;
 
     FloatingActionButton fab;
@@ -64,6 +69,7 @@ public class BranchFragment extends Fragment {
     Firebase reference;
     ArrayList<String> notes = new ArrayList<>();
     String year;
+    RelativeLayout rootview;
 
     public BranchFragment() {
         // Required empty public constructor
@@ -100,10 +106,12 @@ public class BranchFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_branch, container, false);
+        final View view = inflater.inflate(R.layout.fragment_branch, container, false);
+
+        rootview = (RelativeLayout)view.findViewById(R.id.branch);
 
 
         year = getActivity().getIntent().getStringExtra(Utilities.Year);
@@ -130,6 +138,8 @@ public class BranchFragment extends Fragment {
 
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot datas: dataSnapshot.getChildren()) {
@@ -137,6 +147,7 @@ public class BranchFragment extends Fragment {
                     Log.d("List","datas=" + datas.child("Title").getValue().toString());
                     notes.add(key);
                 }
+
                 final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, notes);
                 list.setAdapter(adapter);
 
