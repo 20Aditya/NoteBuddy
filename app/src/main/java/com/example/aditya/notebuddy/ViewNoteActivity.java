@@ -34,6 +34,7 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
     String title,branch,year;
     TextView textView3,textView5,textView7;
     File localFile;
+    String downloadURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,8 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
                     textView3.setText(dataSnapshot.child("Title").getValue().toString());
                     textView5.setText(dataSnapshot.child("Description").getValue().toString());
                     textView7.setText(dataSnapshot.child("File name").getValue().toString());
+                    downloadURL = dataSnapshot.child("File URL").getValue().toString();
+                    Log.d("ViewNote", "DURL = " + downloadURL);
                 }
 
                 @Override
@@ -84,6 +87,8 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
                     textView3.setText(dataSnapshot.child("Title").getValue().toString());
                     textView5.setText(dataSnapshot.child("Description").getValue().toString());
                     textView7.setText(dataSnapshot.child("File name").getValue().toString());
+                    downloadURL = dataSnapshot.child("File URL").getValue().toString();
+                    Log.d("ViewNote", "DURL = " + downloadURL);
                 }
 
                 @Override
@@ -97,19 +102,9 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
 
         getSupportActionBar().setTitle("AddNoteActivity");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        findViewById(R.id.button1).setOnClickListener(this);
 
-        TextView button1 = (TextView)findViewById(R.id.button1);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                String shareBody = "Here is the share content body";
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(sharingIntent, "Share via"));
-            }
-        });
+
 
 
     }
@@ -161,6 +156,16 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    public void share(){
+
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        String shareBody = "This is the download URL of: " + textView7.getText().toString() + "\n" + downloadURL + " \n Click On the link to download automatically";
+        Log.d("ViewNote", "content= " + shareBody);
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(sharingIntent, "Share via"));
+    }
 
     @Override
     public boolean onSupportNavigateUp(){
@@ -174,6 +179,10 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()){
             case R.id.button2:
                 downloadFile();
+                break;
+
+            case R.id.button1:
+                share();
                 break;
         }
 
