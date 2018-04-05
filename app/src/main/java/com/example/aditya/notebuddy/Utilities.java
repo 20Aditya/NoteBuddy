@@ -10,5 +10,6 @@ public class Utilities {
     public static final String Results = "Results";
     public static final String Branch = "branch";
     public static final String Year = "Year";
+    public static final String searchbranch = "searchbranch";
 
 }

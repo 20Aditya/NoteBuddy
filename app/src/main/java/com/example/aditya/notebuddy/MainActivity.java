@@ -138,8 +138,11 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
                 @Override
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                        Intent viewresults = new Intent(MainActivity.this, ResultsActivity.class);
+                        Intent viewresults = new Intent(MainActivity.this, SearchResultsActivity.class);
                         viewresults.putExtra(Utilities.Results, edtSeach.getText().toString());
+                        viewresults.putExtra(Utilities.Year,BranchFragment.year);
+                        viewresults.putExtra(Utilities.searchbranch, BranchFragment.searchbranch );
+                        Log.d("MainActivity","searchbranch=" + BranchFragment.searchbranch+ " "+ edtSeach.getText().toString());
                         startActivity(viewresults);
                         return true;
                     }
@@ -185,5 +188,10 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     @Override
     public void onTabReselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

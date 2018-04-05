@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -68,8 +69,9 @@ public class BranchFragment extends Fragment {
     ListView list;
     Firebase reference;
     ArrayList<String> notes = new ArrayList<>();
-    String year;
+    public static String year;
     RelativeLayout rootview;
+    public static String searchbranch;
 
     public BranchFragment() {
         // Required empty public constructor
@@ -116,6 +118,9 @@ public class BranchFragment extends Fragment {
 
         year = getActivity().getIntent().getStringExtra(Utilities.Year);
         Log.d("MainActivity", "Year = " + year);
+        if(year == "First"){
+            view.setBackgroundColor(Color.parseColor("#000000"));
+        }
 
         fab = view.findViewById(R.id.fab);
         if (fab != null) {
@@ -137,6 +142,7 @@ public class BranchFragment extends Fragment {
         reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/" + year + "/Information Technology/");
 
 
+        searchbranch = "Information Technology";
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
 
 
@@ -199,6 +205,7 @@ public class BranchFragment extends Fragment {
     public void update(final String branch){
 
         notes.clear();
+        searchbranch = branch;
         reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/" + year + "/" + branch);
 
 
