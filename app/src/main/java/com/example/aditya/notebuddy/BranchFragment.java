@@ -68,7 +68,7 @@ public class BranchFragment extends Fragment {
     FloatingActionButton fab;
     ListView list;
     Firebase reference;
-    ArrayList<String> notes = new ArrayList<>();
+    ArrayList<Details> notes = new ArrayList<Details>();
     public static String year;
     RelativeLayout rootview;
     public static String searchbranch;
@@ -151,10 +151,13 @@ public class BranchFragment extends Fragment {
                 for(DataSnapshot datas: dataSnapshot.getChildren()) {
                     String key = datas.child("Title").getValue().toString();
                     Log.d("List","datas=" + datas.child("Title").getValue().toString());
-                    notes.add(key);
+                    String filetype = datas.child("File Type").getValue().toString();
+                    int id = imageid(filetype);
+                    notes.add(new Details(key,id));
+
                 }
 
-                final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, notes);
+                DetailsListAdapter adapter = new DetailsListAdapter(getActivity(),notes);
                 list.setAdapter(adapter);
 
             }
@@ -215,9 +218,13 @@ public class BranchFragment extends Fragment {
                 for(DataSnapshot datas: dataSnapshot.getChildren()) {
                     String key = datas.child("Title").getValue().toString();
                     Log.d("List","datas=" + datas.child("Title").getValue().toString());
-                    notes.add(key);
+                    String filetype = datas.child("File Type").getValue().toString();
+                    int id = imageid(filetype);
+                    notes.add(new Details(key,id));
+
                 }
-                final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, notes);
+
+                DetailsListAdapter adapter = new DetailsListAdapter(getActivity(),notes);
                 list.setAdapter(adapter);
 
             }
@@ -260,6 +267,22 @@ public class BranchFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+
+    public int imageid(String filetype){
+
+        if(filetype.equals(".pdf")){
+            return R.drawable.pdf;
+        }else if(filetype.equals(".docx")){
+            return R.drawable.doc;
+        }else if(filetype.equals(".xlsx")){
+            return R.drawable.xlsx;
+        }else if(filetype.equals(".txt")){
+            return R.drawable.txt;
+        }else{
+            return R.drawable.upload;
+        }
     }
 
 

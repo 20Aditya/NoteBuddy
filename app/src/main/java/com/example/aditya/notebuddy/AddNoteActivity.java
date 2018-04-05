@@ -173,17 +173,21 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
             branchname = branch.getEditText().getText().toString();
 
         Log.d("AddNoteActivity","Titlename = " + branchname);
+        int index = name.indexOf(".");
+        String filetype = name.substring(index,name.length());
 
         if(!branchname.equals("Public Notes") ) {
             databaseReference.child(year).child(branchname).child(titlename).child("Title").setValue(titlename);
             databaseReference.child(year).child(branchname).child(titlename).child("Description").setValue(descriptionname);
             databaseReference.child(year).child(branchname).child(titlename).child("File name").setValue(name);
             databaseReference.child(year).child(branchname).child(titlename).child("File URL").setValue(upload.getUrl());
+            databaseReference.child(year).child(branchname).child(titlename).child("File Type").setValue(filetype);
         }else{
             databaseReference.child(branchname).child(titlename).child("Title").setValue(titlename);
             databaseReference.child(branchname).child(titlename).child("Description").setValue(descriptionname);
             databaseReference.child(branchname).child(titlename).child("File name").setValue(name);
             databaseReference.child(branchname).child(titlename).child("File URL").setValue(upload.getUrl());
+            databaseReference.child(branchname).child(titlename).child("File Type").setValue(filetype);
         }
 
 

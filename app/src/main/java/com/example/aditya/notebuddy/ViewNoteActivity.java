@@ -120,13 +120,16 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
         int index = str.indexOf(".");
         String f = str.substring(0,index);
         Log.d("View","Str=" + f);
+        String type = str.substring(index,str.length());
+        Log.d("View","Str=" + str.substring(index,str.length()));
+
 
         localFile  = null;
         try {
             File directory = new File(Environment.getExternalStoragePublicDirectory
                     (Environment.DIRECTORY_DOCUMENTS).getAbsolutePath());
 
-             localFile = File.createTempFile(f,".pdf", directory);
+             localFile = File.createTempFile(f,type, directory);
 
             islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
