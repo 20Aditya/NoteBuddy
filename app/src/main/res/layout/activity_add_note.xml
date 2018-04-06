@@ -6,9 +6,7 @@
     android:background="#ffffff"
     android:orientation="vertical"
     android:padding="16dp"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linear"
-    tools:context=".AddNoteActivity"
     >
 
     <android.support.design.widget.TextInputLayout
@@ -63,35 +61,35 @@
             />
     </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/filename"
-        />
-
     <LinearLayout
-        android:layout_marginTop="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
-        <Button
-            android:layout_marginRight="25dp"
-            android:background="@drawable/upload"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/buttonUploadFile"
-            />
+        android:orientation="horizontal">
 
         <Button
-            android:id="@+id/submitbutton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/submit"
-            android:elevation="4dp"
-            android:paddingLeft="70dp"
-            android:paddingRight="70dp" />
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/buttonUploadFile"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:background="@drawable/up"
+            android:textColor="#ffffff" />
+
+        <EditText
+            android:id="@+id/filename"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
+
+    <Button
+        android:layout_marginTop="25dp"
+        android:textColor="#ffffff"
+        android:text="SUBMIT"
+        android:id="@+id/submitbutton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/rect"
+        android:elevation="4dp"
+        />
 </LinearLayout>

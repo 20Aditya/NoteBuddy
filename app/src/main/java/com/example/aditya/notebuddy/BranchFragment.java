@@ -243,8 +243,9 @@ public class BranchFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Details obj = (Details)parent.getItemAtPosition(position);
                 Intent viewevent = new Intent(getActivity(), ViewNoteActivity.class);
-                viewevent.putExtra(Utilities.Title,parent.getItemAtPosition(position).toString());
+                viewevent.putExtra(Utilities.Title,obj.getName());
                 viewevent.putExtra(Utilities.Branch, branch);
                 viewevent.putExtra(Utilities.Year, year);
                 startActivity(viewevent);

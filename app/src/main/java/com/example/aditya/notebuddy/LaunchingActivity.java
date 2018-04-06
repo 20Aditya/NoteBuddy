@@ -5,14 +5,18 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class LaunchingActivity extends AppCompatActivity {
 
-    RadioButton radio,radio2,radio3,radio4;
-    Button button;
+    static Button btn1, btn2, btn3, btn4;
+    TextView textView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,41 +24,56 @@ public class LaunchingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_launching);
 
 
-        radio = (RadioButton)findViewById(R.id.radio);
-        radio2 = (RadioButton)findViewById(R.id.radio2);
-        radio3 = (RadioButton)findViewById(R.id.radio3);
-        radio4 = (RadioButton)findViewById(R.id.radio4);
+        textView = (TextView)findViewById(R.id.textView);
+        btn1 = (Button)findViewById(R.id.btn1);
+        btn2 = (Button)findViewById(R.id.btn2);
+        btn3 = (Button)findViewById(R.id.btn3);
+        btn4 = (Button)findViewById(R.id.btn4);
 
-        button = (Button)findViewById(R.id.button3);
-
-        button.setOnClickListener(new View.OnClickListener() {
+        btn1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if(radio.isChecked()){
-                    Intent yearintent = new Intent(LaunchingActivity.this,MainActivity.class);
-                    yearintent.putExtra(Utilities.Year,"First");
-                    startActivity(yearintent);
-                }else if(radio2.isChecked()){
-                    Intent yearintent = new Intent(LaunchingActivity.this,MainActivity.class);
-                    yearintent.putExtra(Utilities.Year,"Second");
-                    startActivity(yearintent);
-                }else if(radio3.isChecked()){
-                    Intent yearintent = new Intent(LaunchingActivity.this,MainActivity.class);
-                    yearintent.putExtra(Utilities.Year,"Third");
-                    startActivity(yearintent);
-                }else if(radio4.isChecked()){
-                    Intent yearintent = new Intent(LaunchingActivity.this,MainActivity.class);
-                    yearintent.putExtra(Utilities.Year,"Fourth");
-                    startActivity(yearintent);
-                }else{
-                    Snackbar snackbar = Snackbar
-                            .make(findViewById(R.id.relativeLayout),"Please Select an Option", Snackbar.LENGTH_SHORT);
-                    snackbar.show();
-                }
+            public void onClick(View view) {
+                final Animation myAnim = AnimationUtils.loadAnimation(LaunchingActivity.this, R.anim.bounce);
+                btn1.startAnimation(myAnim);
+                Intent yearintent = new Intent(LaunchingActivity.this,MainActivity.class);
+                yearintent.putExtra(Utilities.Year,"First");
+                startActivity(yearintent);
+            }
+        });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Animation myAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.bounce);
+                btn2.startAnimation(myAnim);
+
+                Intent yearintent = new Intent(LaunchingActivity.this,MainActivity.class);
+                yearintent.putExtra(Utilities.Year,"Second");
+                startActivity(yearintent);
+            }
+        });
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Animation myAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.bounce);
+                btn3.startAnimation(myAnim);
+
+                Intent yearintent = new Intent(LaunchingActivity.this,MainActivity.class);
+                yearintent.putExtra(Utilities.Year,"Third");
+                startActivity(yearintent);
+            }
+        });
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Animation myAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.bounce);
+                btn4.startAnimation(myAnim);
+                Intent yearintent = new Intent(LaunchingActivity.this,MainActivity.class);
+                yearintent.putExtra(Utilities.Year,"Fourth");
+                startActivity(yearintent);
             }
         });
 
-
+        getSupportActionBar().hide();
 
     }
 }

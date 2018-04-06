@@ -10,6 +10,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +38,7 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
     TextView textView3,textView5,textView7;
     File localFile;
     String downloadURL;
+    Button button1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +103,8 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
 
         }
         findViewById(R.id.button2).setOnClickListener(this);
+
+        button1 = (Button)findViewById(R.id.button1);
 
         getSupportActionBar().setTitle("AddNoteActivity");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -185,6 +191,8 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.button1:
+                final Animation myAnim = AnimationUtils.loadAnimation(ViewNoteActivity.this, R.anim.bounce);
+                button1.startAnimation(myAnim);
                 share();
                 break;
         }

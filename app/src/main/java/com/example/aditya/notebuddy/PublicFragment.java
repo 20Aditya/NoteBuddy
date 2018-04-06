@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -43,7 +45,8 @@ public class PublicFragment extends Fragment {
 
     ListView list;
     Firebase reference;
-    ArrayList<String> notes = new ArrayList<>();
+    ArrayList<Details> notes = new ArrayList<Details>();
+
 
 
     public PublicFragment() {
@@ -84,6 +87,9 @@ public class PublicFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_public, container, false);
 
 
+
+        setHasOptionsMenu(true);
+
         list = (ListView)view.findViewById(R.id.list);
         reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/Public Notes");
 
@@ -94,9 +100,11 @@ public class PublicFragment extends Fragment {
                 for(DataSnapshot datas: dataSnapshot.getChildren()) {
                     String key = datas.child("Title").getValue().toString();
                     Log.d("List","datas=" + datas.child("Title").getValue().toString());
-                    notes.add(key);
+                    String filetype = datas.child("File Type").getValue().toString();
+                    int id = imageid(filetype);
+                    notes.add(new Details(key,id));
                 }
-                final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, notes);
+                DetailsListAdapter adapter = new DetailsListAdapter(getActivity(),notes);
                 list.setAdapter(adapter);
 
             }
@@ -122,6 +130,7 @@ public class PublicFragment extends Fragment {
 
     }
 
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -145,6 +154,31 @@ public class PublicFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+
+    public int imageid(String filetype){
+
+        if(filetype.equals(".pdf")){
+            return R.drawable.pdf;
+        }else if(filetype.equals(".docx")){
+            return R.drawable.doc;
+        }else if(filetype.equals(".xlsx")){
+            return R.drawable.xlsx;
+        }else if(filetype.equals(".txt")){
+            return R.drawable.txt;
+        }else{
+            return R.drawable.upload;
+        }
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menupublic,menu);
+
+    }
+
+
 
     /**
      * This interface must be implemented by activities that contain this

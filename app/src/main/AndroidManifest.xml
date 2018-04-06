@@ -4,15 +4,16 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher1"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".AddNoteActivity"
             android:label="Add a Note"
@@ -21,19 +22,18 @@
             android:name=".ViewNoteActivity"
             android:label="Requested Note"
             android:parentActivityName=".MainActivity" />
-
         <activity
             android:name=".ViewPublicNoteActivity"
             android:label="Requested Note" />
         <activity android:name=".LaunchingActivity">
+        </activity>
+        <activity android:name=".SearchResultsActivity" />
+        <activity android:name=".openingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".SearchResultsActivity">
-
         </activity>
     </application>
 

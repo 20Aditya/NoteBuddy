@@ -3,6 +3,7 @@ package com.example.aditya.notebuddy;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentTransaction;
@@ -23,6 +24,8 @@ import android.widget.TextView;
 
 import com.firebase.client.Firebase;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ActionBar.TabListener, BranchFragment.OnFragmentInteractionListener, PublicFragment.OnFragmentInteractionListener {
 
@@ -138,12 +141,15 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
                 @Override
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                        Intent viewresults = new Intent(MainActivity.this, SearchResultsActivity.class);
-                        viewresults.putExtra(Utilities.Results, edtSeach.getText().toString());
-                        viewresults.putExtra(Utilities.Year,BranchFragment.year);
-                        viewresults.putExtra(Utilities.searchbranch, BranchFragment.searchbranch );
-                        Log.d("MainActivity","searchbranch=" + BranchFragment.searchbranch+ " "+ edtSeach.getText().toString());
-                        startActivity(viewresults);
+
+                        /*if(fragment.) {*/
+                            Intent viewresults = new Intent(MainActivity.this, SearchResultsActivity.class);
+                            viewresults.putExtra(Utilities.Results, edtSeach.getText().toString());
+                            viewresults.putExtra(Utilities.Year, BranchFragment.year);
+                            viewresults.putExtra(Utilities.searchbranch, BranchFragment.searchbranch);
+                            Log.d("MainActivity", "searchbranch=" + BranchFragment.searchbranch + " " + edtSeach.getText().toString());
+                            startActivity(viewresults);
+
                         return true;
                     }
                     return false;
@@ -165,6 +171,18 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         }
     }
 
+
+    /*public Fragment getVisibleFragment(){
+        FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
+        if(fragments != null){
+            for(Fragment fragment : fragments){
+                if(fragment != null && fragment.isVisible())
+                    return fragment;
+            }
+        }
+        return null;
+    }*/
 
 
 

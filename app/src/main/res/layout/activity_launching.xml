@@ -5,65 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.aditya.notebuddy.LaunchingActivity"
-    android:id="@+id/relativeLayout">
+    android:id="@+id/relativeLayout"
+    >
 
 
     <TextView
+        android:background="#512DA8"
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:text="Select the year of your notes"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:padding="35dp"
+        android:text="Choose your
+        year"
+        android:textColor="#ffffff"
+        android:textSize="35dp" />
 
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/ll"
         android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
-        android:id="@+id/radioGroup">
-
-        <RadioButton
-            android:id="@+id/radio"
-            android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/btn1"
+            android:textColor="#ffffff"
+            android:background="@drawable/rect"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="150dp"
+            android:layout_marginTop="25dp"
             android:layout_height="wrap_content"
-            android:text="First Year"
-            android:textSize="17dp"/>
-
-        <RadioButton
-            android:id="@+id/radio2"
-            android:layout_width="wrap_content"
+            android:text="1st year"
+            android:padding="20dp"/>
+        <Button
+            android:id="@+id/btn2"
+            android:textColor="#ffffff"
+            android:background="@drawable/rect1"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="150dp"
+            android:layout_marginTop="15dp"
             android:layout_height="wrap_content"
-            android:text="Second Year"
-            android:textSize="17dp"/>
-
-        <RadioButton
-            android:id="@+id/radio3"
-            android:layout_width="wrap_content"
+            android:text="2nd year"
+            android:padding="20dp"/>
+        <Button
+            android:id="@+id/btn3"
+            android:textColor="#ffffff"
+            android:background="@drawable/rect2"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="150dp"
+            android:layout_marginTop="15dp"
             android:layout_height="wrap_content"
-            android:text="Third Year"
-            android:textSize="17dp"/>
-
-        <RadioButton
-            android:id="@+id/radio4"
-            android:layout_width="wrap_content"
+            android:text="3rd year"
+            android:padding="20dp"/>
+        <Button
+            android:id="@+id/btn4"
+            android:textColor="#ffffff"
+            android:background="@drawable/rect3"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="150dp"
+            android:layout_marginTop="15dp"
             android:layout_height="wrap_content"
-            android:text="Fourth Year"
-            android:textSize="17dp"/>
-
-    </RadioGroup>
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroup"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="42dp"
-        android:text="Move to Notes" />
+            android:text="4th year"
+            android:padding="20dp"/>
+    </LinearLayout>
 
 
 </RelativeLayout>
