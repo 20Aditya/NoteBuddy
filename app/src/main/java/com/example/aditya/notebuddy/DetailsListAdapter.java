@@ -2,6 +2,7 @@ package com.example.aditya.notebuddy;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,13 +17,18 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static com.example.aditya.notebuddy.BranchFragment.year;
+
 /**
  * Created by aditya on 6/4/18.
  */
 
-public class DetailsListAdapter extends ArrayAdapter<Details> {
+public class DetailsListAdapter extends ArrayAdapter<Details>{
 
     private static final String LOG_TAG = DetailsListAdapter.class.getSimpleName();
+    ViewGroup p;
+    int po;
+    Details currentdetail;
 
 
 
@@ -42,7 +48,9 @@ public class DetailsListAdapter extends ArrayAdapter<Details> {
             listitemview = LayoutInflater.from(getContext()).inflate(R.layout.list_item,parent,false);
         }
 
-        Details currentdetail = getItem(position);
+        p =parent;
+        po = position;
+        currentdetail = getItem(position);
 
         TextView nametextview = (TextView)listitemview.findViewById(R.id.name);
 
@@ -55,7 +63,13 @@ public class DetailsListAdapter extends ArrayAdapter<Details> {
         iconview.setImageResource(currentdetail.getImageresourceid());
 
 
+
+
         return listitemview;
 
     }
+
+
+
+
 }

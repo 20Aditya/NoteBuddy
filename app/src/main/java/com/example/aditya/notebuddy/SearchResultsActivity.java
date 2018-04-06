@@ -84,7 +84,7 @@ public class SearchResultsActivity extends AppCompatActivity {
                     Log.d("Search", "key=" + key.toLowerCase());
                     Log.d("Search","querylenght="+ String.valueOf(key.length()));
                     if(query.length()<=key.length()) {
-                        if (query.toLowerCase().equals(key.toLowerCase().substring(0, query.length()))) {
+                        if (key.toLowerCase().contains(query.toLowerCase())) {
 
                             Log.d("Search", "results=" + key);
                             notesresult.add(key);

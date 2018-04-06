@@ -24,10 +24,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -66,6 +68,7 @@ public class BranchFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     FloatingActionButton fab;
+    TextView textView;
     ListView list;
     Firebase reference;
     ArrayList<Details> notes = new ArrayList<Details>();
@@ -169,13 +172,14 @@ public class BranchFragment extends Fragment {
 
         });
 
-
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("List", "Value=" + parent.getItemAtPosition(position));
+                Details obj = (Details)parent.getItemAtPosition(position);
+
                 Intent viewevent = new Intent(getActivity(),ViewNoteActivity.class);
-                viewevent.putExtra(Utilities.Title,parent.getItemAtPosition(position).toString());
+                viewevent.putExtra(Utilities.Title,obj.getName());
                 viewevent.putExtra(Utilities.Year,year);
                 startActivity(viewevent);
                 if (getContext() instanceof Activity) {
