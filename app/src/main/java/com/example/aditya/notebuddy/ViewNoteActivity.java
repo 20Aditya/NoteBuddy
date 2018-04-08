@@ -106,7 +106,7 @@ public class ViewNoteActivity extends AppCompatActivity implements View.OnClickL
 
         button1 = (Button)findViewById(R.id.button1);
 
-        getSupportActionBar().setTitle("AddNoteActivity");
+        getSupportActionBar().setTitle("Your Note");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         findViewById(R.id.button1).setOnClickListener(this);
 

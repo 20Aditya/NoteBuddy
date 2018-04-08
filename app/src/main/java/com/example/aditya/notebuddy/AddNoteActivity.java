@@ -80,7 +80,7 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.buttonUploadFile).setOnClickListener(this);
         findViewById(R.id.submitbutton).setOnClickListener(this);
 
-        getSupportActionBar().setTitle("AddNoteActivity");
+        getSupportActionBar().setTitle("Add a Note");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }

@@ -29,10 +29,10 @@ public class SearchResultsActivity extends AppCompatActivity {
 
     private static String year,searchbranch;
     private static Firebase reference;
-    private static ArrayList<String> notesresult = new ArrayList<>();
+    private static ArrayList<Details> notesresult = new ArrayList<Details>();
     private static ListView listView;
-    private static  ArrayAdapter<String> adapter;
     private static  Context context;
+    private static  int flag;
 
 
     @Override
@@ -40,17 +40,29 @@ public class SearchResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
+        setTitle("Search Results");
+
         context = SearchResultsActivity.this;
 
         listView = (ListView)findViewById(R.id.list);
 
 
         year = getIntent().getStringExtra(Utilities.Year);
-        searchbranch = getIntent().getStringExtra(Utilities.searchbranch);
+        if(year.equals("Public Notes")) {
+            flag = 1;
+            Log.d("Search","year="+ year);
+        }else{
+            searchbranch = getIntent().getStringExtra(Utilities.searchbranch);
+            Log.d("Search","year="+ year + " " + searchbranch);
+            flag = 0;
+        }
 
 
-        Log.d("Search","year="+ year + " " + searchbranch);
+
         handleIntent(getIntent());
+
+
+
 
 
     }
@@ -68,44 +80,83 @@ public class SearchResultsActivity extends AppCompatActivity {
         showResults(intent.getStringExtra(Utilities.Results));
     }
 
-    public static void showResults(final String query) {
+    public void showResults(final String query) {
 
 
         notesresult.clear();
 
-        reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/" + year + "/" + searchbranch + "/");
+        if(flag == 0) {
 
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot datas : dataSnapshot.getChildren()) {
+            reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/" + year + "/" + searchbranch + "/");
 
-                    String key = datas.child("Title").getValue().toString();
-                    Log.d("Search", "key=" + key.toLowerCase());
-                    Log.d("Search","querylenght="+ String.valueOf(key.length()));
-                    if(query.length()<=key.length()) {
-                        if (key.toLowerCase().contains(query.toLowerCase())) {
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot datas : dataSnapshot.getChildren()) {
 
-                            Log.d("Search", "results=" + key);
-                            notesresult.add(key);
-                        } else {
-                            Log.d("Search", "key=" + key);
+                        String key = datas.child("Title").getValue().toString();
+                        Log.d("Search", "key=" + key.toLowerCase());
+                        Log.d("Search", "querylenght=" + String.valueOf(key.length()));
+                        if (query.length() <= key.length()) {
+                            if (key.toLowerCase().contains(query.toLowerCase())) {
+
+                                Log.d("Search", "results=" + key);
+                                notesresult.add(new Details(key,R.drawable.searchicon));
+                            } else {
+                                Log.d("Search", "key=" + key);
+                            }
                         }
                     }
+
+
+                    DetailsListAdapter adapter = new DetailsListAdapter(SearchResultsActivity.this,notesresult);
+                    listView.setAdapter(adapter);
+
                 }
 
 
-                adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, notesresult);
-                listView.setAdapter(adapter);
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
 
-            }
+                }
+            });
+
+        }else{
+
+            reference = new Firebase("https://notebuddy-9b5d4.firebaseio.com/" + year + "/");
+
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot datas : dataSnapshot.getChildren()) {
+
+                        String key = datas.child("Title").getValue().toString();
+                        Log.d("Search", "key=" + key.toLowerCase());
+                        Log.d("Search", "querylenght=" + String.valueOf(key.length()));
+                        if (query.length() <= key.length()) {
+                            if (key.toLowerCase().contains(query.toLowerCase())) {
+
+                                Log.d("Search", "results=" + key);
+                                notesresult.add(new Details(key,R.drawable.searchicon));
+                            } else {
+                                Log.d("Search", "key=" + key);
+                            }
+                        }
+                    }
 
 
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
+                    DetailsListAdapter adapter = new DetailsListAdapter(SearchResultsActivity.this,notesresult);
+                    listView.setAdapter(adapter);
 
-            }
-        });
+                }
+
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
+        }
 
 
     }

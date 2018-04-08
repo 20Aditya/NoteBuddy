@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     private boolean isSearchOpened = false;
     private EditText edtSeach;
     String year;
+    int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
 
 
         Snackbar snackbar = Snackbar
-                .make(viewPager,"Loading Data...", Snackbar.LENGTH_SHORT);
+                .make(viewPager,"Loading Data...", Snackbar.LENGTH_LONG);
         snackbar.show();
 
         viewPager.setAdapter(mAdapter);
@@ -76,6 +77,8 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
                 // on changing the page
                 // make respected tab selected
                 actionBar.setSelectedNavigationItem(position);
+                Log.d("MainActivity", "Position = " + position);
+                index = position;
             }
 
             @Override
@@ -142,13 +145,23 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
-                        /*if(fragment.) {*/
+                        Log.d("MainActivity","Current Fragment:" + index);
+                        if(index == 0) {
+
                             Intent viewresults = new Intent(MainActivity.this, SearchResultsActivity.class);
                             viewresults.putExtra(Utilities.Results, edtSeach.getText().toString());
                             viewresults.putExtra(Utilities.Year, BranchFragment.year);
                             viewresults.putExtra(Utilities.searchbranch, BranchFragment.searchbranch);
                             Log.d("MainActivity", "searchbranch=" + BranchFragment.searchbranch + " " + edtSeach.getText().toString());
                             startActivity(viewresults);
+                        }else {
+
+                            Intent viewresults = new Intent(MainActivity.this, SearchResultsActivity.class);
+                            viewresults.putExtra(Utilities.Results, edtSeach.getText().toString());
+                            viewresults.putExtra(Utilities.Year, "Public Notes");
+                            Log.d("MainActivity", "searchbranch=" + edtSeach.getText().toString());
+                            startActivity(viewresults);
+                        }
 
                         return true;
                     }

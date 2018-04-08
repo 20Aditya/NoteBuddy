@@ -194,12 +194,6 @@ public class BranchFragment extends Fragment {
     }
 
 
-    /*public void onclickfunction(View view, String title){
-        Intent viewevent = new Intent(getActivity(),ViewNoteActivity.class);
-        viewevent.putExtra(Utilities.Title,title);
-        viewevent.putExtra(Utilities.)
-        startActivity(viewevent);
-    }*/
 
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -275,7 +269,7 @@ public class BranchFragment extends Fragment {
     }
 
 
-    public int imageid(String filetype){
+    public static int imageid(String filetype){
 
         if(filetype.equals(".pdf")){
             return R.drawable.pdf;
@@ -285,6 +279,8 @@ public class BranchFragment extends Fragment {
             return R.drawable.xlsx;
         }else if(filetype.equals(".txt")){
             return R.drawable.txt;
+        }else if(filetype.equals(".ppt")){
+            return R.drawable.ppt;
         }else{
             return R.drawable.upload;
         }
